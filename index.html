@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-In Modal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Backdrop -->
+    <div class="backdrop" id="backdrop" onclick="toggleModal()"></div>
+
+    <!-- Modal -->
+    <div class="modal-wrapper" id="authModal">
+        <div class="modal-header">
+            <img src="your-logo.png" alt="App Logo" style="width: 50px; height: auto; margin-bottom: 10px;">
+            <h2>Sign In</h2>
+        </div>
+        <div class="modal-content">
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+            <button class="button">Login</button>
+            <div class="social-login">
+                <button class="google">Sign in with Google</button>
+                <button class="facebook">Sign in with Facebook</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating button -->
+    <div class="floating-button" onclick="toggleModal()">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/login-rounded.png" alt="Login">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
