@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead CMS</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Local Buyer List</h1>
+        <button id="freeBtn">Get Free Now!</button>
+        <button id="bulkBtn">Bulk Targeted List!</button>
+
+        <div id="modal" class="modal">
+            <p id="modalText"></p>
+            <select id="listRange" style="display: none;">
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+            </select>
+            <div style="margin-top: 20px;">
+                <button id="pdfBtn">Download PDF</button>
+                <button id="csvBtn">Download CSV</button>
+            </div>
+        </div>
+
+        <div id="modalOverlay" class="modal-overlay"></div>
+        <div id="notification" class="notification">
+            Due to the high volume of customers using our services, please allow up to 48 hours for your download to be processed. Thank you for your patience!
+        </div>
+    </div>
+    <script src="./assets/js/scripts.js"></script>
+</body>
+</html>

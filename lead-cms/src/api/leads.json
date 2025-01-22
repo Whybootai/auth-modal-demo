@@ -1,0 +1,19 @@
+
+[
+    {
+        "name": "Customer 1",
+        "city": "Random City",
+        "distance": "15 miles",
+        "phone": "(123) 456-7890",
+        "budget": "$40,000",
+        "idealCar": "Sedan"
+    },
+    {
+        "name": "Customer 2",
+        "city": "Another City",
+        "distance": "25 miles",
+        "phone": "(987) 654-3210",
+        "budget": "$35,000",
+        "idealCar": "SUV"
+    }
+]
