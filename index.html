@@ -4,8 +4,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign-In Modal</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Professional Sign-In Modal</title>
+    <style>
+        /* Body styling */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Backdrop styling */
+        .backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.3s ease;
+        }
+
+        .backdrop.open {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Modal styling */
+        .modal-wrapper {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 420px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .modal-wrapper.open {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        /* Modal header */
+        .modal-header {
+            background: linear-gradient(135deg, #6200ea, #3700b3);
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            font-size: 1.5rem;
+        }
+
+        /* Modal content */
+        .modal-content {
+            padding: 20px;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: #f9f9f9;
+        }
+
+        .modal-content input:focus {
+            border-color: #6200ea;
+            outline: none;
+        }
+
+        /* Buttons */
+        .modal-content .button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background: #6200ea;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .modal-content .button:hover {
+            background: #3700b3;
+        }
+
+        /* Social buttons */
+        .social-login {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .social-login button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        .social-login button.google {
+            background: #db4437;
+        }
+
+        .social-login button.facebook {
+            background: #4267b2;
+        }
+
+        /* Floating login button */
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6200ea, #3700b3);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .floating-button img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
 </head>
 <body>
     <!-- Backdrop -->
@@ -33,6 +174,13 @@
         <img src="https://img.icons8.com/ios-filled/50/ffffff/login-rounded.png" alt="Login">
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function toggleModal() {
+            const modal = document.getElementById('authModal');
+            const backdrop = document.getElementById('backdrop');
+            modal.classList.toggle('open');
+            backdrop.classList.toggle('open');
+        }
+    </script>
 </body>
 </html>
