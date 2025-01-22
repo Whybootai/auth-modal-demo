@@ -1,38 +1,239 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign-In Modal</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arizona Dealership - Local Buyers</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-image: url('https://via.placeholder.com/1920x1080?text=Dealership+Background');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 90%;
+      max-width: 800px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      color: #007bff;
+      margin: 20px 0;
+    }
+
+    .cta-button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin: 10px;
+    }
+
+    .cta-button:hover {
+      background-color: #0056b3;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      table-layout: fixed;
+      filter: blur(3px);
+      user-select: none;
+      pointer-events: none;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #eee;
+      font-weight: bold;
+      filter: blur(0);
+    }
+
+    .modal, .notification {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .notification {
+      border: 2px solid red;
+      background-color: #ffe5e5;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    select {
+      padding: 10px;
+      width: 100%;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .loader {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #007bff;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Backdrop -->
-    <div class="backdrop" id="backdrop" onclick="toggleModal()"></div>
+  <div class="container">
+    <h1>Arizona Dealership</h1>
+    <p>50 complementary leads! Get them now or explore a bulk targeted list.</p>
+    <button class="cta-button" id="freeBtn">Get Free 50 Now!</button>
+    <button class="cta-button" id="bulkBtn">Bulk Targeted List!</button>
 
-    <!-- Modal -->
-    <div class="modal-wrapper" id="authModal">
-        <div class="modal-header">
-            <img src="your-logo.png" alt="App Logo" style="width: 50px; height: auto; margin-bottom: 10px;">
-            <h2>Sign In</h2>
-        </div>
-        <div class="modal-content">
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
-            <button class="button">Login</button>
-            <div class="social-login">
-                <button class="google">Sign in with Google</button>
-                <button class="facebook">Sign in with Facebook</button>
-            </div>
-        </div>
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>Distance</th>
+          <th>Phone</th>
+          <th>Budget</th>
+          <th>Ideal Car</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- JavaScript will populate rows -->
+      </tbody>
+    </table>
+  </div>
 
-    <!-- Floating button -->
-    <div class="floating-button" onclick="toggleModal()">
-        <img src="https://img.icons8.com/ios-filled/50/ffffff/login-rounded.png" alt="Login">
-    </div>
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="modal" id="modal">
+    <p id="modalText"></p>
+    <select id="listRange" style="display: none;">
+      <option value="50">50</option>
+      <option value="100">100</option>
+      <option value="250">250</option>
+      <option value="500">500</option>
+      <option value="1000">1000</option>
+    </select>
+    <button class="cta-button" id="pdfBtn">Download PDF</button>
+    <button class="cta-button" id="csvBtn">Download CSV</button>
+  </div>
 
-    <script src="script.js"></script>
+  <!-- Notification -->
+  <div class="notification" id="notification">
+    <p>Due to the high volume of customers using our services, please allow up to 48 hours for your download to be processed. Thank you for your patience!</p>
+  </div>
+
+  <script>
+    const tbody = document.querySelector('tbody');
+    for (let i = 0; i < 50; i++) {
+      const row = tbody.insertRow();
+      row.insertCell().textContent = `Customer ${i + 1}`;
+      row.insertCell().textContent = 'Random City';
+      row.insertCell().textContent = `${Math.floor(Math.random() * 50) + 1} miles`;
+      row.insertCell().textContent = '(XXX) XXX-XXXX';
+      row.insertCell().textContent = `$${Math.floor(Math.random() * 50000) + 20000}`;
+      row.insertCell().textContent = 'Random Car';
+    }
+
+    const freeBtn = document.getElementById('freeBtn');
+    const bulkBtn = document.getElementById('bulkBtn');
+    const modal = document.getElementById('modal');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const notification = document.getElementById('notification');
+    const pdfBtn = document.getElementById('pdfBtn');
+    const csvBtn = document.getElementById('csvBtn');
+    const listRange = document.getElementById('listRange');
+    const modalText = document.getElementById('modalText');
+
+    function showNotification() {
+      modal.style.display = 'none';
+      modalOverlay.style.display = 'none';
+      notification.style.display = 'block';
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 5000);
+    }
+
+    freeBtn.addEventListener('click', () => {
+      modal.style.display = 'block';
+      modalOverlay.style.display = 'block';
+      modalText.textContent = 'Your free 50 leads are ready!';
+      listRange.style.display = 'none';
+    });
+
+    bulkBtn.addEventListener('click', () => {
+      modal.style.display = 'block';
+      modalOverlay.style.display = 'block';
+      modalText.textContent = 'Choose the number of local buyer leads needed:';
+      listRange.style.display = 'block';
+    });
+
+    pdfBtn.addEventListener('click', showNotification);
+    csvBtn.addEventListener('click', showNotification);
+
+    modalOverlay.addEventListener('click', () => {
+      modal.style.display = 'none';
+      modalOverlay.style.display = 'none';
+    });
+  </script>
 </body>
 </html>
