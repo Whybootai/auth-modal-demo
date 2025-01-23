@@ -1,1 +1,4 @@
-fastapi[all]
+Flask
+requests
+Flask-CORS
+gunicorn
