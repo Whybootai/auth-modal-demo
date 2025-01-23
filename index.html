@@ -20,23 +20,23 @@
         }
 
         button {
-             padding: 10px 20px;
+            padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-             border: none;
+            border: none;
             border-radius: 4px;
             margin: 5px;
         }
 
-         #google-login-btn {
-             background-color: #4285f4;
+        #google-login-btn {
+            background-color: #4285f4;
             color: white;
-         }
+        }
 
-         #logout-btn {
-             background-color: #db4437;
+        #logout-btn {
+            background-color: #db4437;
             color: white;
-         }
+        }
 
         .loading-message {
             margin-top: 20px;
@@ -46,9 +46,10 @@
         .error-message {
             color: #ff0000;
             margin-top: 10px;
-             font-weight: bold;
+            font-weight: bold;
         }
-         .user-profile {
+
+        .user-profile {
             margin-top: 20px;
             padding: 20px;
             background-color: white;
@@ -70,13 +71,13 @@
     <div id="auth-container">
         <button id="google-login-btn">Sign in with Google</button>
     </div>
-     <div id="loading-container" class="loading-message" style="display:none;">Loading...</div>
+    <div id="loading-container" class="loading-message" style="display:none;">Loading...</div>
     <div id="error-container" class="error-message"></div>
     <div id="user-profile-container"></div>
 
     <script>
         const clientId = '583125721525-95l13p8v8bou7ts0bngalren5pp9i28o.apps.googleusercontent.com';
-        const redirectUri = 'http://localhost:3000/callback';
+        const redirectUri = 'http://localhost:3000/callback'; // Ensure this matches your Google Developer Console
         const scope = 'profile email';
         const googleAuthEndpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
 
@@ -86,42 +87,38 @@
         const userProfileContainer = document.getElementById('user-profile-container');
 
         function setLoading(isLoading){
-          loadingContainer.style.display = isLoading ? "block": "none";
-          errorContainer.textContent = ""; //Clear any previous errors
+            loadingContainer.style.display = isLoading ? "block": "none";
+            errorContainer.textContent = ""; // Clear any previous errors
         }
-
 
         function clearUserProfile(){
-          userProfileContainer.innerHTML = "";
-          authContainer.innerHTML = `<button id="google-login-btn">Sign in with Google</button>`;
-          attachGoogleLoginClick();
+            userProfileContainer.innerHTML = "";
+            authContainer.innerHTML = `<button id="google-login-btn">Sign in with Google</button>`;
+            attachGoogleLoginClick();
         }
-
 
         function displayError(message){
             errorContainer.textContent = message;
             setLoading(false);
         }
 
-
         function displayUserProfile(userData){
-           let profileHTML = `
-            <div class="user-profile">
-              <img class="profile-image" src="${userData.picture}" alt="User Profile Image">
-              <p><strong>Name:</strong> ${userData.name}</p>
-              <p><strong>Email:</strong> ${userData.email}</p>
-              <button id="logout-btn">Log out</button>
-            </div>
+            let profileHTML = `
+                <div class="user-profile">
+                    <img class="profile-image" src="${userData.picture}" alt="User Profile Image">
+                    <p><strong>Name:</strong> ${userData.name}</p>
+                    <p><strong>Email:</strong> ${userData.email}</p>
+                    <button id="logout-btn">Log out</button>
+                </div>
             `;
             userProfileContainer.innerHTML = profileHTML;
-             const logoutButton = document.getElementById('logout-btn');
+            const logoutButton = document.getElementById('logout-btn');
             if(logoutButton) {
                 logoutButton.addEventListener('click', clearUserProfile);
             }
             setLoading(false);
-            authContainer.innerHTML = ''; // remove login button
+            authContainer.innerHTML = ''; // Remove login button
         }
-
 
         function buildAuthURL() {
             const params = new URLSearchParams({
@@ -134,22 +131,19 @@
             return `${googleAuthEndpoint}?${params.toString()}`;
         }
 
-
         function initiateGoogleAuth() {
             const authUrl = buildAuthURL();
             window.location.href = authUrl;
         }
 
         function attachGoogleLoginClick(){
-          const loginButton = document.getElementById('google-login-btn');
-
+            const loginButton = document.getElementById('google-login-btn');
             if(loginButton){
                 loginButton.addEventListener('click', initiateGoogleAuth);
             }
         }
 
-
-       document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
             attachGoogleLoginClick();
             const urlParams = new URLSearchParams(window.location.search);
             const authorizationCode = urlParams.get('code');
@@ -160,28 +154,28 @@
         });
 
         async function sendAuthCodeToServer(authorizationCode) {
-          setLoading(true);
-          try {
-            const response = await fetch('/exchange-code', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ code: authorizationCode }),
-            });
+            setLoading(true);
+            try {
+                const response = await fetch('/exchange-code', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ code: authorizationCode }),
+                });
 
-            if (!response.ok) {
-              const errorData = await response.json();
-              displayError(`Error exchanging code: ${errorData.error || response.statusText}`)
-              throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    displayError(`Error exchanging code: ${errorData.error || response.statusText}`)
+                    throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                displayUserProfile(data);
+
+            } catch (error) {
+                displayError(`Error sending code to server: ${error.message}`);
             }
-
-            const data = await response.json();
-             displayUserProfile(data);
-
-          } catch (error) {
-            displayError(`Error sending code to server: ${error.message}`);
-          }
         }
     </script>
 </body>
