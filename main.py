@@ -1,85 +1,66 @@
 from flask import Flask, request, jsonify, redirect
 import requests
-from urllib.parse import urlencode
-import os
+import json
 
 app = Flask(__name__)
 
-# OAuth2 credentials loaded from environment variables
-CLIENT_ID = os.getenv('CLIENT_ID')
-CLIENT_SECRET = os.getenv('CLIENT_SECRET')
-REDIRECT_URI = os.getenv('REDIRECT_URI')  # Ensure this matches the URL in Google console
+CLIENT_ID = '583125721525-95l13p8v8bou7ts0bngalren5pp9i28o.apps.googleusercontent.com'
+CLIENT_SECRET = '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'
+REDIRECT_URI = 'https://auth-modal-demo-1.onrender.com/callback'  # Must match the redirect URI in client-side
+TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token"
+USER_INFO_ENDPOINT = "https://www.googleapis.com/oauth2/v3/userinfo"
 
-# Google OAuth2 endpoints
-AUTHORIZATION_URL = 'https://accounts.google.com/o/oauth2/v2/auth'
-TOKEN_ENDPOINT = 'https://oauth2.googleapis.com/token'
-USER_INFO_ENDPOINT = 'https://www.googleapis.com/oauth2/v3/userinfo'
 
-@app.route('/')
-def home():
-    # The initial route that triggers the Google login flow
-    google_auth_url = get_google_auth_url()
-    return redirect(google_auth_url)
+@app.route('/exchange-code', methods=['POST'])
+def exchange_code():
+    data = request.get_json()
+    auth_code = data.get('code')
 
-def get_google_auth_url():
-    # Build the Google OAuth2 authorization URL
-    params = {
-        'client_id': CLIENT_ID,
-        'redirect_uri': REDIRECT_URI,
-        'response_type': 'code',
-        'scope': 'openid profile email',  # Requesting basic info like email and profile
-        'access_type': 'offline',  # Request refresh token
-        'include_granted_scopes': 'true',
-    }
-    auth_url = AUTHORIZATION_URL + '?' + urlencode(params)
-    return auth_url
-
-@app.route('/callback')
-def callback():
-    # Handle the redirect from Google OAuth with the authorization code
-    auth_code = request.args.get('code')
     if not auth_code:
-        return jsonify({"error": "Authorization code not provided"}), 400
+       return jsonify({"error":"Code not provided"}), 400
 
-    # Exchange the authorization code for an access token
-    token_data = exchange_code_for_token(auth_code)
-    if 'error' in token_data:
-        return jsonify(token_data), 400
-
-    # Fetch user info using the access token
-    user_info = get_user_info(token_data['access_token'])
-    if user_info:
-        return jsonify(user_info)
-    else:
-        return jsonify({"error": "Failed to fetch user data"}), 500
-
-def exchange_code_for_token(auth_code):
-    # Exchange authorization code for access token
     payload = {
-        'client_id': CLIENT_ID,
-        'client_secret': CLIENT_SECRET,
-        'code': auth_code,
-        'redirect_uri': REDIRECT_URI,
-        'grant_type': 'authorization_code',
+        "client_id": CLIENT_ID,
+        "client_secret": CLIENT_SECRET,
+        "code": auth_code,
+        "redirect_uri": REDIRECT_URI,
+        "grant_type": "authorization_code"
     }
 
     try:
         response = requests.post(TOKEN_ENDPOINT, data=payload)
-        response.raise_for_status()  # Raise an error for bad responses
-        return response.json()  # Return token data
+        response.raise_for_status() # Raise HTTPError for bad responses (4xx or 5xx)
+        token_data = response.json()
+        access_token = token_data.get("access_token")
     except requests.exceptions.RequestException as e:
-        return {'error': f"Error fetching token: {str(e)}"}
+        return jsonify({"error": f"Error fetching token: {str(e)}"}), 500
+
+    if not access_token:
+        return jsonify({"error": "No access token returned"}), 500
+
+    user_info = get_user_info(access_token) # function below
+    if not user_info:
+        return jsonify({"error": "Failed to fetch user data"}), 500
+
+
+    return jsonify(user_info)
 
 def get_user_info(access_token):
-    # Fetch the user's Google profile information using the access token
     headers = {'Authorization': f'Bearer {access_token}'}
     try:
         response = requests.get(USER_INFO_ENDPOINT, headers=headers)
-        response.raise_for_status()  # Raise an error for bad responses
-        return response.json()  # Return user info data
+        response.raise_for_status()
+        return response.json()
     except requests.exceptions.RequestException as e:
-        return None  # Handle errors gracefully
+         print(f"Error fetching user info: {str(e)}") # print to console to log errors
+         return None
+
+@app.route('/callback')
+def callback():
+    # Handle the redirect. This is where you receive the auth code.
+    # You may handle the auth code, exchange it for a token
+    # and perform further actions
+    return "Successfully received the auth code, server has processed it"
 
 if __name__ == '__main__':
-    # Use 0.0.0.0 to ensure the app works on Render.com
-    app.run(debug=False, host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
+   app.run(debug=True, port=10000)
