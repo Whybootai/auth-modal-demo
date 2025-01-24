@@ -3,81 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google OAuth Example</title>
+    <title>CodyPro AI - Login with Google</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Roboto', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding-top: 50px;
-            background-color: #f4f4f4;
+            background-color: #0b0f14;
+            color: #e8f1f2;
+            margin: 0;
+            height: 100vh;
+            justify-content: center;
+            text-align: center;
         }
 
-        h1 {
+       h1 {
             margin-bottom: 30px;
-            color: #333;
+            color: #00ff9d;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
         }
+
 
         button {
-            padding: 10px 20px;
+            padding: 15px 30px;
             font-size: 16px;
             cursor: pointer;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             margin: 5px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            font-weight: bold;
         }
+
 
         #google-login-btn {
             background-color: #4285f4;
             color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
+         #google-login-btn:hover{
+              background-color: #3570e8;
+         }
 
         #logout-btn {
             background-color: #db4437;
             color: white;
         }
 
-        .loading-message {
+         #logout-btn:hover {
+             background-color: #c13a30;
+         }
+
+         .loading-message {
             margin-top: 20px;
-            color: #888;
-        }
+             color: #00ff9d;
+            font-style: italic;
+         }
 
         .error-message {
-            color: #ff0000;
+            color: #ff5722;
             margin-top: 10px;
             font-weight: bold;
+            background: rgba(255,87,34,0.1);
+            padding: 10px;
+            border-radius: 8px;
         }
+
 
         .user-profile {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+             margin-top: 20px;
+            padding: 30px;
+            background-color: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
+
         .profile-image {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            object-fit: cover;
+             border: 2px solid #00ff9d;
         }
+
+
     </style>
 </head>
 <body>
-    <h1>Login with Google</h1>
+    <h1>Welcome to CodyPro AI</h1>
     <div id="auth-container">
-        <button id="google-login-btn">Sign in with Google</button>
+        <button id="google-login-btn">
+            <i class="fab fa-google"></i> Sign in with Google
+        </button>
     </div>
     <div id="loading-container" class="loading-message" style="display:none;">Loading...</div>
     <div id="error-container" class="error-message"></div>
     <div id="user-profile-container"></div>
 
     <script>
-        const clientId = '583125721525-95l13p8v8bou7ts0bngalren5pp9i28o.apps.googleusercontent.com';
-        const redirectUri = 'http://localhost:3000/callback'; // Ensure this matches your Google Developer Console
+        const clientId = 'YOUR_GOOGLE_DRIVE_CLIENT_ID'; // Replace with your actual client ID
+        const redirectUri = `${window.location.protocol}//${window.location.host}/callback`; // Dynamic Redirect URI
         const scope = 'profile email';
         const googleAuthEndpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
 
@@ -88,13 +123,17 @@
 
         function setLoading(isLoading){
             loadingContainer.style.display = isLoading ? "block": "none";
-            errorContainer.textContent = ""; // Clear any previous errors
+            errorContainer.textContent = "";
         }
 
-        function clearUserProfile(){
-            userProfileContainer.innerHTML = "";
-            authContainer.innerHTML = `<button id="google-login-btn">Sign in with Google</button>`;
-            attachGoogleLoginClick();
+         function clearUserProfile(){
+             userProfileContainer.innerHTML = "";
+             authContainer.innerHTML = `
+                 <button id="google-login-btn">
+                     <i class="fab fa-google"></i> Sign in with Google
+                 </button>
+             `;
+             attachGoogleLoginClick();
         }
 
         function displayError(message){
@@ -112,15 +151,16 @@
                 </div>
             `;
             userProfileContainer.innerHTML = profileHTML;
-            const logoutButton = document.getElementById('logout-btn');
-            if(logoutButton) {
-                logoutButton.addEventListener('click', clearUserProfile);
-            }
+             const logoutButton = document.getElementById('logout-btn');
+             if(logoutButton) {
+                 logoutButton.addEventListener('click', clearUserProfile);
+             }
             setLoading(false);
             authContainer.innerHTML = ''; // Remove login button
+
         }
 
-        function buildAuthURL() {
+         function buildAuthURL() {
             const params = new URLSearchParams({
                 client_id: clientId,
                 redirect_uri: redirectUri,
@@ -136,22 +176,21 @@
             window.location.href = authUrl;
         }
 
-        function attachGoogleLoginClick(){
-            const loginButton = document.getElementById('google-login-btn');
+       function attachGoogleLoginClick(){
+           const loginButton = document.getElementById('google-login-btn');
             if(loginButton){
                 loginButton.addEventListener('click', initiateGoogleAuth);
-            }
+           }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             attachGoogleLoginClick();
             const urlParams = new URLSearchParams(window.location.search);
             const authorizationCode = urlParams.get('code');
-
-            if (authorizationCode) {
-                sendAuthCodeToServer(authorizationCode);
-            }
-        });
+           if (authorizationCode) {
+               sendAuthCodeToServer(authorizationCode);
+           }
+         });
 
         async function sendAuthCodeToServer(authorizationCode) {
             setLoading(true);
@@ -164,14 +203,14 @@
                     body: JSON.stringify({ code: authorizationCode }),
                 });
 
-                if (!response.ok) {
+               if (!response.ok) {
                     const errorData = await response.json();
                     displayError(`Error exchanging code: ${errorData.error || response.statusText}`)
                     throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
                 }
 
                 const data = await response.json();
-                displayUserProfile(data);
+               displayUserProfile(data);
 
             } catch (error) {
                 displayError(`Error sending code to server: ${error.message}`);
