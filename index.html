@@ -112,9 +112,10 @@
 
     <script>
         const clientId = 'YOUR_GOOGLE_DRIVE_CLIENT_ID'; // Replace with your actual client ID
-        const redirectUri = `${window.location.protocol}//${window.location.host}/callback`; // Dynamic Redirect URI
+        const redirectUri = 'https://auth-modal-demo-1.onrender.com/callback'; // Use your live URL
         const scope = 'profile email';
         const googleAuthEndpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+         const clientSecret = "YOUR_CLIENT_SECRET"; // IMPORTANT: Do not expose this in frontend code in production!!!
 
         const authContainer = document.getElementById('auth-container');
         const loadingContainer = document.getElementById('loading-container');
@@ -182,40 +183,67 @@
                 loginButton.addEventListener('click', initiateGoogleAuth);
            }
         }
+          async function exchangeCodeForToken(code) {
+                setLoading(true);
+
+                // Simulated backend token exchange logic (DO NOT DO IN PROD!)
+                const tokenEndpoint = "https://oauth2.googleapis.com/token";
+                const tokenParams = new URLSearchParams();
+                tokenParams.append("code", code);
+                tokenParams.append("client_id", clientId);
+                tokenParams.append("client_secret", clientSecret);
+                tokenParams.append("redirect_uri", redirectUri);
+                tokenParams.append("grant_type", "authorization_code");
+
+
+                try {
+                    const tokenResponse = await fetch(tokenEndpoint, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                         body: tokenParams,
+                   });
+                    if (!tokenResponse.ok) {
+                        const errorData = await tokenResponse.json();
+                        displayError(`Error fetching token: ${errorData.error_description || tokenResponse.statusText}`);
+                        throw new Error(`Token request failed: ${tokenResponse.status}`);
+                     }
+
+                    const tokenData = await tokenResponse.json();
+                     const accessToken = tokenData.access_token;
+                    //fetch profile
+                     const profileResponse = await fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
+                        headers: {
+                                    "Authorization": `Bearer ${accessToken}`
+                             },
+                    });
+                     if (!profileResponse.ok) {
+                         const errorData = await profileResponse.json();
+                         displayError(`Error fetching user profile: ${errorData.error_description || profileResponse.statusText}`);
+                        throw new Error(`Profile request failed: ${profileResponse.status}`);
+                     }
+
+                    const profileData = await profileResponse.json();
+                    displayUserProfile(profileData);
+
+
+                } catch (error) {
+                    displayError(`Error in token exchange process: ${error.message}`)
+                    setLoading(false);
+
+                }
+
+            }
 
         document.addEventListener('DOMContentLoaded', () => {
             attachGoogleLoginClick();
             const urlParams = new URLSearchParams(window.location.search);
             const authorizationCode = urlParams.get('code');
-           if (authorizationCode) {
-               sendAuthCodeToServer(authorizationCode);
-           }
+
+            if (authorizationCode) {
+               exchangeCodeForToken(authorizationCode);
+             }
          });
 
-        async function sendAuthCodeToServer(authorizationCode) {
-            setLoading(true);
-            try {
-                const response = await fetch('/exchange-code', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ code: authorizationCode }),
-                });
-
-               if (!response.ok) {
-                    const errorData = await response.json();
-                    displayError(`Error exchanging code: ${errorData.error || response.statusText}`)
-                    throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
-                }
-
-                const data = await response.json();
-               displayUserProfile(data);
-
-            } catch (error) {
-                displayError(`Error sending code to server: ${error.message}`);
-            }
-        }
     </script>
 </body>
 </html>
