@@ -5,19 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Casino Portals</title>
     <style>
+        :root {
+            --background-dark: linear-gradient(135deg, #1c1c3c, #0d0d26);
+            --background-light: linear-gradient(135deg, #ffffff, #f0f0f0);
+            --text-dark: #ffffff;
+            --text-light: #000000;
+        }
+
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #1c1c3c, #0d0d26);
-            color: #ffffff;
+            background: var(--background-dark);
+            color: var(--text-dark);
             overflow-x: hidden;
             animation: background-animation 10s infinite alternate;
+            transition: background 0.5s, color 0.5s;
         }
 
         @keyframes background-animation {
-            0% { background: linear-gradient(135deg, #1c1c3c, #0d0d26); }
+            0% { background: var(--background-dark); }
             50% { background: linear-gradient(135deg, #0d0d26, #1c1c3c); }
-            100% { background: linear-gradient(135deg, #1c1c3c, #0d0d26); }
+            100% { background: var(--background-dark); }
+        }
+
+        body.light-mode {
+            background: var(--background-light);
+            color: var(--text-light);
         }
 
         header {
@@ -27,6 +40,11 @@
             padding: 10px 20px;
             background: rgba(0, 0, 0, 0.8);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: background 0.5s;
+        }
+
+        body.light-mode header {
+            background: rgba(255, 255, 255, 0.8);
         }
 
         .logo {
@@ -43,7 +61,7 @@
 
         nav a {
             text-decoration: none;
-            color: #ffffff;
+            color: inherit;
             font-size: 16px;
             transition: color 0.3s;
         }
@@ -52,11 +70,24 @@
             color: #ffdd57;
         }
 
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            color: #ffdd57;
+            transition: color 0.3s;
+        }
+
+        body.light-mode .theme-toggle {
+            color: #ffb300;
+        }
+
         .hero {
             text-align: center;
             padding: 50px 20px;
             background: url('https://via.placeholder.com/1920x600') no-repeat center center/cover;
-            color: #ffffff;
+            color: inherit;
         }
 
         .hero h1 {
@@ -86,6 +117,10 @@
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
+        body.light-mode .link-card {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
         .link-card:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
@@ -98,94 +133,29 @@
             font-weight: bold;
         }
 
-        .casino-section {
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .casino-section h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-            color: #ffdd57;
-        }
-
-        .casino-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .casino-card {
-            background: #202040;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
-            color: #ffffff;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .casino-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
-        }
-
-        .casino-card img {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-
-        .casino-card h3 {
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
-
-        .casino-card p {
-            font-size: 16px;
-        }
-
         footer {
             text-align: center;
             padding: 20px;
             background: rgba(0, 0, 0, 0.8);
             font-size: 14px;
-            color: #ffffff;
+            color: inherit;
+            transition: background 0.5s;
         }
 
-        .icon {
-            display: inline-block;
-            margin-right: 10px;
-            font-size: 18px;
-            color: #ffdd57;
-            vertical-align: middle;
+        body.light-mode footer {
+            background: rgba(255, 255, 255, 0.8);
         }
 
-        .kingkong-logo {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .kingkong-logo img {
-            width: 150px;
-            animation: spin 4s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .casino-icon {
+        .powered-by {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
+            margin-top: 10px;
+            gap: 10px;
         }
 
-        .casino-icon img {
-            width: 60px;
-            height: auto;
-            margin-right: 15px;
+        .powered-by img {
+            width: 100px;
         }
     </style>
 </head>
@@ -197,6 +167,9 @@
             <a href="#">About</a>
             <a href="#">Contact</a>
         </nav>
+        <div class="theme-toggle" onclick="toggleTheme()">
+            <span id="theme-icon">🌙</span>
+        </div>
     </header>
 
     <section class="hero">
@@ -231,40 +204,27 @@
         </div>
     </section>
 
-    <section class="casino-section">
-        <h2>Featured Casinos</h2>
-        <div class="casino-cards">
-            <div class="casino-card">
-                <div class="casino-icon">
-                    <img src="https://via.placeholder.com/60" alt="Casino Icon">
-                    <h3>Luxury Spins Casino</h3>
-                </div>
-                <p>Enjoy top-tier games and exclusive bonuses at Luxury Spins Casino.</p>
-            </div>
-            <div class="casino-card">
-                <div class="casino-icon">
-                    <img src="https://via.placeholder.com/60" alt="Casino Icon">
-                    <h3>Elite Jackpots</h3>
-                </div>
-                <p>Win massive jackpots and experience premium service at Elite Jackpots.</p>
-            </div>
-            <div class="casino-card">
-                <div class="casino-icon">
-                    <img src="https://via.placeholder.com/60" alt="Casino Icon">
-                    <h3>Royal Bets</h3>
-                </div>
-                <p>Place your bets and play like royalty at Royal Bets Casino.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="kingkong-logo">
-        <img src="https://i.ibb.co/BzMh20h/Kingkong-gaming.png" alt="Kingkong Gaming Logo">
-        <p>Powered by Kingkong Gaming</p>
-    </section>
-
     <footer>
-        &copy; 2025 Online Casino Portals. All rights reserved.
+        <p>&copy; 2025 Online Casino Portals. All rights reserved.</p>
+        <div class="powered-by">
+            <span>Powered by:</span>
+            <img src="https://i.ibb.co/BzMh20h/Kingkong-gaming.png" alt="King Kong Gaming">
+        </div>
     </footer>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+
+            body.classList.toggle('light-mode');
+
+            if (body.classList.contains('light-mode')) {
+                themeIcon.textContent = '☀️';
+            } else {
+                themeIcon.textContent = '🌙';
+            }
+        }
+    </script>
 </body>
 </html>
