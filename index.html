@@ -3,247 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodyPro AI - Login with Google</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Online Casino Portals</title>
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 50px;
-            background-color: #0b0f14;
-            color: #e8f1f2;
             margin: 0;
-            height: 100vh;
-            justify-content: center;
-            text-align: center;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1c1c3c, #0d0d26);
+            color: #ffffff;
+            overflow-x: hidden;
+            animation: background-animation 10s infinite alternate;
         }
 
-       h1 {
-            margin-bottom: 30px;
-            color: #00ff9d;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+        @keyframes background-animation {
+            0% { background: linear-gradient(135deg, #1c1c3c, #0d0d26); }
+            50% { background: linear-gradient(135deg, #0d0d26, #1c1c3c); }
+            100% { background: linear-gradient(135deg, #1c1c3c, #0d0d26); }
         }
 
-
-        button {
-            padding: 15px 30px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 8px;
-            margin: 5px;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            font-weight: bold;
-        }
-
-
-        #google-login-btn {
-            background-color: #4285f4;
-            color: white;
-            display: inline-flex;
+        header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-        }
-         #google-login-btn:hover{
-              background-color: #3570e8;
-         }
-
-        #logout-btn {
-            background-color: #db4437;
-            color: white;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
-         #logout-btn:hover {
-             background-color: #c13a30;
-         }
-
-         .loading-message {
-            margin-top: 20px;
-             color: #00ff9d;
-            font-style: italic;
-         }
-
-        .error-message {
-            color: #ff5722;
-            margin-top: 10px;
+        .logo {
+            font-size: 24px;
             font-weight: bold;
-            background: rgba(255,87,34,0.1);
-            padding: 10px;
-            border-radius: 8px;
+            color: #ffdd57;
+            text-shadow: 0 2px 5px rgba(255, 255, 255, 0.5);
         }
 
+        nav {
+            display: flex;
+            gap: 15px;
+        }
 
-        .user-profile {
-             margin-top: 20px;
-            padding: 30px;
-            background-color: rgba(255,255,255,0.08);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffdd57;
+        }
+
+        .hero {
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
+            padding: 50px 20px;
+            background: url('https://via.placeholder.com/1920x600') no-repeat center center/cover;
+            color: #ffffff;
         }
 
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        }
 
-        .profile-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
+        .hero p {
+            font-size: 18px;
             margin-bottom: 20px;
-            object-fit: cover;
-             border: 2px solid #00ff9d;
         }
 
+        .links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px 20px;
+        }
 
+        .link-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .link-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .link-card a {
+            text-decoration: none;
+            color: #ffdd57;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .casino-section {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .casino-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #ffdd57;
+        }
+
+        .casino-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .casino-card {
+            background: #202040;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+            color: #ffffff;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .casino-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+        }
+
+        .casino-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .casino-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .casino-card p {
+            font-size: 16px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .icon {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 18px;
+            color: #ffdd57;
+            vertical-align: middle;
+        }
+
+        .kingkong-logo {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .kingkong-logo img {
+            width: 150px;
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .casino-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .casino-icon img {
+            width: 60px;
+            height: auto;
+            margin-right: 15px;
+        }
     </style>
 </head>
 <body>
-    <h1>Welcome to CodyPro AI</h1>
-    <div id="auth-container">
-        <button id="google-login-btn">
-            <i class="fab fa-google"></i> Sign in with Google
-        </button>
-    </div>
-    <div id="loading-container" class="loading-message" style="display:none;">Loading...</div>
-    <div id="error-container" class="error-message"></div>
-    <div id="user-profile-container"></div>
+    <header>
+        <div class="logo">Online Casino Portals</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
 
-    <script>
-        const clientId = 'YOUR_GOOGLE_DRIVE_CLIENT_ID'; // Replace with your actual client ID
-        const redirectUri = 'https://auth-modal-demo-1.onrender.com/callback'; // Use your live URL
-        const scope = 'profile email';
-        const googleAuthEndpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
-         const clientSecret = "YOUR_CLIENT_SECRET"; // IMPORTANT: Do not expose this in frontend code in production!!!
+    <section class="hero">
+        <h1>Welcome to the Future of Online Casinos</h1>
+        <p>Explore our advanced and futuristic portals for endless fun and excitement!</p>
+    </section>
 
-        const authContainer = document.getElementById('auth-container');
-        const loadingContainer = document.getElementById('loading-container');
-        const errorContainer = document.getElementById('error-container');
-        const userProfileContainer = document.getElementById('user-profile-container');
+    <section class="links">
+        <div class="link-card">
+            <span class="icon">🎲</span>
+            <a href="https://axiebet88.net" target="_blank">AxieBet88</a>
+        </div>
+        <div class="link-card">
+            <span class="icon">🃏</span>
+            <a href="https://milyon88.live" target="_blank">Milyon88</a>
+        </div>
+        <div class="link-card">
+            <span class="icon">🎰</span>
+            <a href="https://444okjl.com" target="_blank">444OKJL</a>
+        </div>
+        <div class="link-card">
+            <span class="icon">♠️</span>
+            <a href="https://funbingo.vip" target="_blank">FunBingo</a>
+        </div>
+        <div class="link-card">
+            <span class="icon">♥️</span>
+            <a href="https://22phdream.com" target="_blank">22PhDream</a>
+        </div>
+        <div class="link-card">
+            <span class="icon">♣️</span>
+            <a href="https://mojili.net" target="_blank">Mojili</a>
+        </div>
+    </section>
 
-        function setLoading(isLoading){
-            loadingContainer.style.display = isLoading ? "block": "none";
-            errorContainer.textContent = "";
-        }
-
-         function clearUserProfile(){
-             userProfileContainer.innerHTML = "";
-             authContainer.innerHTML = `
-                 <button id="google-login-btn">
-                     <i class="fab fa-google"></i> Sign in with Google
-                 </button>
-             `;
-             attachGoogleLoginClick();
-        }
-
-        function displayError(message){
-            errorContainer.textContent = message;
-            setLoading(false);
-        }
-
-        function displayUserProfile(userData){
-            let profileHTML = `
-                <div class="user-profile">
-                    <img class="profile-image" src="${userData.picture}" alt="User Profile Image">
-                    <p><strong>Name:</strong> ${userData.name}</p>
-                    <p><strong>Email:</strong> ${userData.email}</p>
-                    <button id="logout-btn">Log out</button>
+    <section class="casino-section">
+        <h2>Featured Casinos</h2>
+        <div class="casino-cards">
+            <div class="casino-card">
+                <div class="casino-icon">
+                    <img src="https://via.placeholder.com/60" alt="Casino Icon">
+                    <h3>Luxury Spins Casino</h3>
                 </div>
-            `;
-            userProfileContainer.innerHTML = profileHTML;
-             const logoutButton = document.getElementById('logout-btn');
-             if(logoutButton) {
-                 logoutButton.addEventListener('click', clearUserProfile);
-             }
-            setLoading(false);
-            authContainer.innerHTML = ''; // Remove login button
+                <p>Enjoy top-tier games and exclusive bonuses at Luxury Spins Casino.</p>
+            </div>
+            <div class="casino-card">
+                <div class="casino-icon">
+                    <img src="https://via.placeholder.com/60" alt="Casino Icon">
+                    <h3>Elite Jackpots</h3>
+                </div>
+                <p>Win massive jackpots and experience premium service at Elite Jackpots.</p>
+            </div>
+            <div class="casino-card">
+                <div class="casino-icon">
+                    <img src="https://via.placeholder.com/60" alt="Casino Icon">
+                    <h3>Royal Bets</h3>
+                </div>
+                <p>Place your bets and play like royalty at Royal Bets Casino.</p>
+            </div>
+        </div>
+    </section>
 
-        }
+    <section class="kingkong-logo">
+        <img src="https://i.ibb.co/BzMh20h/Kingkong-gaming.png" alt="Kingkong Gaming Logo">
+        <p>Powered by Kingkong Gaming</p>
+    </section>
 
-         function buildAuthURL() {
-            const params = new URLSearchParams({
-                client_id: clientId,
-                redirect_uri: redirectUri,
-                scope: scope,
-                response_type: 'code',
-            });
-
-            return `${googleAuthEndpoint}?${params.toString()}`;
-        }
-
-        function initiateGoogleAuth() {
-            const authUrl = buildAuthURL();
-            window.location.href = authUrl;
-        }
-
-       function attachGoogleLoginClick(){
-           const loginButton = document.getElementById('google-login-btn');
-            if(loginButton){
-                loginButton.addEventListener('click', initiateGoogleAuth);
-           }
-        }
-          async function exchangeCodeForToken(code) {
-                setLoading(true);
-
-                // Simulated backend token exchange logic (DO NOT DO IN PROD!)
-                const tokenEndpoint = "https://oauth2.googleapis.com/token";
-                const tokenParams = new URLSearchParams();
-                tokenParams.append("code", code);
-                tokenParams.append("client_id", clientId);
-                tokenParams.append("client_secret", clientSecret);
-                tokenParams.append("redirect_uri", redirectUri);
-                tokenParams.append("grant_type", "authorization_code");
-
-
-                try {
-                    const tokenResponse = await fetch(tokenEndpoint, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                         body: tokenParams,
-                   });
-                    if (!tokenResponse.ok) {
-                        const errorData = await tokenResponse.json();
-                        displayError(`Error fetching token: ${errorData.error_description || tokenResponse.statusText}`);
-                        throw new Error(`Token request failed: ${tokenResponse.status}`);
-                     }
-
-                    const tokenData = await tokenResponse.json();
-                     const accessToken = tokenData.access_token;
-                    //fetch profile
-                     const profileResponse = await fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
-                        headers: {
-                                    "Authorization": `Bearer ${accessToken}`
-                             },
-                    });
-                     if (!profileResponse.ok) {
-                         const errorData = await profileResponse.json();
-                         displayError(`Error fetching user profile: ${errorData.error_description || profileResponse.statusText}`);
-                        throw new Error(`Profile request failed: ${profileResponse.status}`);
-                     }
-
-                    const profileData = await profileResponse.json();
-                    displayUserProfile(profileData);
-
-
-                } catch (error) {
-                    displayError(`Error in token exchange process: ${error.message}`)
-                    setLoading(false);
-
-                }
-
-            }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            attachGoogleLoginClick();
-            const urlParams = new URLSearchParams(window.location.search);
-            const authorizationCode = urlParams.get('code');
-
-            if (authorizationCode) {
-               exchangeCodeForToken(authorizationCode);
-             }
-         });
-
-    </script>
+    <footer>
+        &copy; 2025 Online Casino Portals. All rights reserved.
+    </footer>
 </body>
 </html>
