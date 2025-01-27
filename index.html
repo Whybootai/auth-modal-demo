@@ -17,7 +17,7 @@
             background: linear-gradient(120deg, #2b2b2b, #1a1a1a);
             color: #ddd;
             transition: background-color 0.3s, color 0.3s;
-            overflow-x: hidden;
+             overflow-x: hidden;
         }
 
         body.light {
@@ -26,112 +26,74 @@
         }
 
         header {
-            background: linear-gradient(90deg, #0066cc, #004999);
-            color: white;
+              background: linear-gradient(90deg, #0066cc, #004999);
+             color: white;
             padding: 1.5rem;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             animation: slideIn 1s ease-out;
-            display: flex;
+           display: flex;
             align-items: center;
-            justify-content: center;
-            flex-direction: column;
+           justify-content: center;
+             flex-direction: column;
         }
-
-        header img {
+         header img {
             height: 50px;
-            margin-bottom: 0.8rem;
-            filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2));
+             margin-bottom: 0.8rem;
+             filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2));
         }
-
         header h1 {
             display: inline-block;
             margin-bottom: 0.2rem;
             font-size: 2.5rem;
         }
-
-        header h1 span:nth-child(1) {
-            color: #4285F4;
-        }
-
-        header h1 span:nth-child(2) {
-            color: #EA4335;
-        }
-
-        header h1 span:nth-child(3) {
-            color: #FBBC05;
-        }
-
-        header h1 span:nth-child(4) {
-            color: #4285F4;
-        }
-
-        header h1 span:nth-child(5) {
-            color: #34A853;
-        }
-
-        header h1 span:nth-child(6) {
-            color: #EA4335;
-        }
-
-        header h1 span:nth-child(7) {
-            color: #4285F4;
-        }
-
-        header h1 span:nth-child(8) {
-            color: #FBBC05;
-        }
-
-        header h1 span:nth-child(9) {
-            color: #34A853;
-        }
-
-        header h1 span:nth-child(10) {
-            color: #4285F4;
-        }
-
-         header h1 span:nth-child(11) { color: #EA4335; }
+          header h1 span:nth-child(1) { color: #4285F4; }
+           header h1 span:nth-child(2) { color: #EA4335; }
+           header h1 span:nth-child(3) { color: #FBBC05; }
+           header h1 span:nth-child(4) { color: #4285F4; }
+            header h1 span:nth-child(5) { color: #34A853; }
+            header h1 span:nth-child(6) { color: #EA4335; }
+             header h1 span:nth-child(7) { color: #4285F4; }
+             header h1 span:nth-child(8) { color: #FBBC05; }
+             header h1 span:nth-child(9) { color: #34A853; }
+              header h1 span:nth-child(10) { color: #4285F4; }
+              header h1 span:nth-child(11) { color: #EA4335; }
         header h1 span {
-            display: inline-block;
+             display: inline-block;
         }
-
-        header p {
+         header p {
             font-size: 1.2rem;
-        }
-
+         }
         main {
-            padding: 2rem;
+           padding: 2rem;
             text-align: center;
             min-height: calc(100vh - 150px);
-        }
-
+         }
         .search-container {
             max-width: 600px;
-            margin: 2rem auto;
-            padding: 1.5rem;
+             margin: 2rem auto;
+           padding: 1.5rem;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             animation: fadeIn 1.5s ease-in-out;
-            position: relative;
-            transition: background 0.3s ease;
+             position: relative;
+           transition: background 0.3s ease;
         }
-
-        body.light .search-container {
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-        }
-
+         body.light .search-container {
+             background: rgba(255, 255, 255, 0.9);
+              color: #333;
+          }
         footer {
             background-color: rgba(255, 255, 255, 0.05);
             color: #ddd;
             text-align: center;
-            padding: 0.8rem;
-            position: relative;
+             padding: 0.8rem;
+             position: relative;
             width: 100%;
             box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
-            margin-top: auto;
-            transition: background-color 0.3s, color 0.3s;
+             margin-top: auto;
+           transition: background-color 0.3s, color 0.3s;
             font-size: 0.9rem;
         }
 
@@ -140,355 +102,423 @@
             color: #333;
         }
 
-        button {
+         button {
             background-color: #0066cc;
             color: white;
             border: none;
             padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
+             border-radius: 8px;
+           cursor: pointer;
             font-size: 1rem;
-            transition: background-color 0.3s ease;
+           transition: background-color 0.3s ease;
         }
-
         button:hover {
             background-color: #004999;
         }
-
         .toggle-button {
             position: fixed;
             top: 1rem;
             right: 1rem;
-             background: rgba(255, 255, 255, 0.2);
-            border: none;
-           border-radius: 50%;
-           cursor: pointer;
-            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+           border: none;
+             border-radius: 50%;
+            cursor: pointer;
+             font-size: 1.5rem;
             color: white;
-            z-index: 1000;
-             width: 3rem;
-             height: 3rem;
-             display: flex;
+             z-index: 1000;
+            width: 3rem;
+           height: 3rem;
+            display: flex;
              align-items: center;
              justify-content: center;
-            transition: background-color 0.3s, color 0.3s;
-           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
+            transition: background-color 0.3s, color 0.3s, transform 0.3s ease;
+             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-
-
-         .toggle-button:hover {
-           background: rgba(255, 255, 255, 0.3); /* Hover effect */
+        .toggle-button:hover {
+           background: rgba(255, 255, 255, 0.3);
        }
 
-        body.light .toggle-button {
-             background: rgba(0, 0, 0, 0.1); /* Darken the button in light mode */
+         body.light .toggle-button {
+            background: rgba(0, 0, 0, 0.1);
             color: #333;
-
+         }
+          body.light .toggle-button:hover {
+             background: rgba(0, 0, 0, 0.2);
         }
-
-         body.light .toggle-button:hover {
-           background: rgba(0, 0, 0, 0.2); /* Darken the hover effect */
-       }
-
-        @keyframes slideIn {
+         @keyframes slideIn {
             from {
-                transform: translateY(-100%);
+                 transform: translateY(-100%);
                 opacity: 0;
-            }
-
+           }
             to {
                 transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeIn {
+               opacity: 1;
+           }
+         }
+         @keyframes fadeIn {
             from {
                 opacity: 0;
             }
-
-            to {
+             to {
                 opacity: 1;
-            }
-        }
+             }
+         }
          .gcse-search {
-          margin-top: 1rem;
+            margin-top: 1rem;
         }
-         .gcse-search input[type="text"] {
-            padding: 0.8rem;
-            border: 1px solid #555;
-             border-radius: 8px;
-            width: 95%;
-           background: #444;
-            color: #ddd;
-            transition: background-color 0.3s, color 0.3s;
-            margin-bottom: 0.8rem;
-         }
-        body.light .gcse-search input[type="text"] {
-           background: #f1f1f1;
-           border: 1px solid #ddd;
-            color: #333;
-         }
 
+         .gcse-search input[type="text"] {
+           padding: 0.8rem;
+             border: 1px solid #555;
+           border-radius: 8px;
+            width: 95%;
+              background: #444;
+              color: #ddd;
+               transition: background-color 0.3s, color 0.3s;
+           margin-bottom: 0.8rem;
+        }
+         body.light .gcse-search input[type="text"] {
+            background: #f1f1f1;
+            border: 1px solid #ddd;
+              color: #333;
+          }
         /* Chatbox Styles */
        .chatbox-container {
             position: fixed;
             bottom: 20px;
-            right: 20px;
-            z-index: 1000;
+             right: 20px;
+             z-index: 1000;
         }
-        .chatbox {
+
+         .chatbox {
             width: 300px;
             background: #333;
-            border-radius: 12px;
-             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+             border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-             display: flex;
+            display: flex;
             flex-direction: column;
-            max-height: 400px;
+             max-height: 400px;
             transition: transform 0.3s ease, opacity 0.3s ease;
              opacity: 1;
              transform: translateY(0);
+        }
+        body.light .chatbox {
+           background: white;
+            color: #333;
          }
 
-        body.light .chatbox {
-             background: white;
-            color: #333;
-           }
-
-        .chatbox.hidden {
+       .chatbox.hidden {
             opacity: 0;
             transform: translateY(20px);
-            pointer-events: none;
+              pointer-events: none;
         }
 
-        .chatbox-header {
+       .chatbox-header {
             background-color: #0066cc;
             color: white;
             padding: 0.5rem 1rem;
-            font-size: 1rem;
+           font-size: 1rem;
             font-weight: bold;
             display: flex;
-            justify-content: space-between;
+             justify-content: space-between;
             align-items: center;
-            cursor: pointer;
-        }
-         .chatbox-header:hover {
-            background-color: #004999;
+             cursor: pointer;
+       }
+       .chatbox-header:hover {
+           background-color: #004999;
          }
-        .chatbox-body {
-           flex: 1;
-            padding: 1rem;
+         .chatbox-body {
+            flex: 1;
+             padding: 1rem;
             overflow-y: auto;
-            display: flex;
+             display: flex;
             flex-direction: column;
-             gap: 0.5rem;
-        }
-        .chatbox-message {
-            padding: 0.5rem;
-            border-radius: 8px;
-            max-width: 80%;
+            gap: 0.5rem;
+       }
+
+       .chatbox-message {
+           padding: 0.5rem;
+             border-radius: 8px;
+             max-width: 80%;
             white-space: pre-line;
+             position: relative;
         }
-        .chatbox-message.user {
+         .chatbox-message.user {
              background-color: #0066cc;
-             color: white;
-            align-self: flex-end;
+            color: white;
+           align-self: flex-end;
         }
         .chatbox-message.bot {
-            background-color: #444;
-             color: #ddd;
-            align-self: flex-start;
-        }
-        body.light .chatbox-message.bot {
-            background-color: #f1f1f1;
+             background-color: #444;
+            color: #ddd;
+              align-self: flex-start;
+         }
+
+       body.light .chatbox-message.bot {
+           background-color: #f1f1f1;
              color: #333;
+         }
+
+        .chatbox-message .copy-button {
+           position: absolute;
+             top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
+            padding: 0; /* Removes additional padding */
+            margin: 0; /* Removes margin */
+             transition: color 0.3s;
+        }
+       .chatbox-message .copy-button:hover {
+             color: rgba(255, 255, 255, 1);
+        }
+        body.light .chatbox-message .copy-button {
+             color: #888;
+         }
+        body.light .chatbox-message .copy-button:hover{
+           color: #0066cc;
+
+        }
+        .chatbox-message .edit-button {
+            position: absolute;
+            top: 0.5rem;
+             right: 0.5rem;
+             background: none;
+            border: none;
+             font-size: 0.9rem;
+             cursor: pointer;
+            color: rgba(255, 255, 255, 0.7); /* Slightly transparent */
+             padding: 0;
+            margin: 0;
+             transition: color 0.3s;
+         }
+           .chatbox-message .edit-button:hover {
+                color: rgba(255, 255, 255, 1);
+          }
+        body.light .chatbox-message .edit-button {
+             color: #888;
+        }
+          body.light .chatbox-message .edit-button:hover{
+           color: #0066cc;
         }
 
-        .chatbox-input {
+         .chatbox-input {
             display: flex;
-            border-top: 1px solid #555;
+             border-top: 1px solid #555;
         }
          body.light .chatbox-input {
-             border-top: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+        }
+         .chatbox-input input {
+           flex: 1;
+             padding: 0.5rem;
+             border: none;
+              outline: none;
+             background: #444;
+             color: #ddd;
         }
 
-        .chatbox-input input {
-            flex: 1;
-            padding: 0.5rem;
-           border: none;
-            outline: none;
-             background: #444;
-            color: #ddd;
-        }
         body.light .chatbox-input input {
              background: white;
             color: #333;
-        }
+       }
         .chatbox-input button {
-            background-color: #0066cc;
-             color: white;
-            border: none;
-            padding: 0.5rem 1rem;
+             background-color: #0066cc;
+              color: white;
+             border: none;
+           padding: 0.5rem 1rem;
             cursor: pointer;
+        }
+         .chatbox-input button:hover {
+             background-color: #004999;
          }
-        .chatbox-input button:hover {
-            background-color: #004999;
-         }
-
-        .loading {
+         .loading {
              display: flex;
-            justify-content: center;
+             justify-content: center;
              align-items: center;
             padding: 0.5rem;
         }
-        .loading-dot {
-            width: 8px;
+         .loading-dot {
+             width: 8px;
             height: 8px;
-           margin: 0 4px;
+             margin: 0 4px;
             background-color: #0066cc;
-            border-radius: 50%;
-             animation: bounce 1.4s infinite ease-in-out;
-       }
-         .loading-dot:nth-child(2) {
+             border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+        .loading-dot:nth-child(2) {
             animation-delay: 0.2s;
         }
-         .loading-dot:nth-child(3) {
-             animation-delay: 0.4s;
-        }
-        @keyframes bounce {
-            0%,
-            80%,
-             100% {
+        .loading-dot:nth-child(3) {
+           animation-delay: 0.4s;
+       }
+       @keyframes bounce {
+           0%,
+             80%,
+            100% {
                 transform: translateY(0);
-           }
-
-             40% {
-                 transform: translateY(-10px);
             }
-        }
-
-        .chatbox-powered-by {
+           40% {
+                transform: translateY(-10px);
+           }
+         }
+         .chatbox-powered-by {
             text-align: center;
-             padding: 0.5rem;
-           font-size: 0.8rem;
+            padding: 0.5rem;
+             font-size: 0.8rem;
         }
-
-          .chatbox-powered-by a {
+        .chatbox-powered-by a {
               color: #ddd;
-               text-decoration: none;
-               transition: color 0.3s ease;
-        }
-
-         body.light .chatbox-powered-by a {
+            text-decoration: none;
+             transition: color 0.3s ease;
+         }
+          body.light .chatbox-powered-by a {
             color: #333;
           }
-
-         .chatbox-powered-by a:hover {
-              color: #0066cc;
+          .chatbox-powered-by a:hover {
+               color: #0066cc;
          }
+
+          /* Notification Styles */
+         .copy-notification {
+           position: fixed;
+             top: 20px;
+             left: 50%;
+            transform: translateX(-50%);
+            background-color: #48bb78;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.375rem;
+             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+             z-index: 1001;
+             transition: opacity 0.3s ease, transform 0.3s ease;
+           opacity: 0;
+              pointer-events: none;
+          }
+           .copy-notification.show {
+                opacity: 1;
+                 transform: translateX(-50%) translateY(0);
+             }
+
         /* Responsive Design */
-         @media (max-width: 768px) {
+        @media (max-width: 768px) {
             header {
                 flex-direction: column;
-                text-align: center;
+                 text-align: center;
                 padding: 1rem;
             }
 
-            header img {
+             header img {
                 margin-bottom: 0.8rem;
             }
-           .chatbox-container {
-                width: 90%;
-                right: 5%;
+
+            .chatbox-container {
+                 width: 90%;
+                 right: 5%;
                 bottom: 5%;
-              }
+             }
               .chatbox{
-                  width: 100%;
-              }
+                width: 100%;
+            }
          }
-    </style>
+     </style>
 </head>
 
 <body>
-    <header>
-        <img src="https://i.ibb.co/G54yvHB/Lightning-Leads-logo.png" alt="Lightning Leads Logo">
-        <h1>
-            <span>L</span><span>i</span><span>g</span><span>h</span><span>t</span><span>n</span><span>i</span><span>n</span><span>g</span>
+     <header>
+         <img src="https://i.ibb.co/G54yvHB/Lightning-Leads-logo.png" alt="Lightning Leads Logo">
+           <h1>
+             <span>L</span><span>i</span><span>g</span><span>h</span><span>t</span><span>n</span><span>i</span><span>n</span><span>g</span>
             <span>L</span><span>e</span><span>a</span><span>d</span><span>s</span>
-        </h1>
+           </h1>
         <p>Empowering your searches with lightning speed</p>
     </header>
-
-    <button class="toggle-button" id="theme-toggle" aria-label="Toggle theme">
-     <i class="fas fa-sun"></i>
+      <button class="toggle-button" id="theme-toggle" aria-label="Toggle theme">
+         <i class="fas fa-sun"></i>
      </button>
-
-    <main>
-        <div class="search-container">
-            <p>Use the search box below to discover amazing results:</p>
+     <main>
+         <div class="search-container">
+             <p>Use the search box below to discover amazing results:</p>
             <script async src="https://cse.google.com/cse.js?cx=e514bb2842e7845ae"></script>
-            <div class="gcse-search"></div>
-            <div id="search-results">
+           <div class="gcse-search"></div>
+             <div id="search-results">
             </div>
-        </div>
-    </main>
+         </div>
+     </main>
+
     <footer>
-        <p>© 2025 Lightning Leads. All rights reserved. Developed by Flynn James P.</p>
-    </footer>
+         <p>© 2025 Lightning Leads. All rights reserved. Developed by Flynn James P.</p>
+     </footer>
 
       <!-- Chatbox Widget -->
       <div class="chatbox-container">
-         <div class="chatbox hidden" id="chatbox">
-            <div class="chatbox-header" id="chatbox-header">
-                Cody AI- SEO Assistance
-                <button id="minimize-chatbox" style="background:none; border:none; color: white; cursor:pointer; font-size: 1.2rem;">
+        <div class="chatbox hidden" id="chatbox">
+           <div class="chatbox-header" id="chatbox-header">
+                Cody
+               <button id="minimize-chatbox" style="background:none; border:none; color: white; cursor:pointer; font-size: 1.2rem;">
                  <i class="fas fa-minus"></i>
-                 </button>
-            </div>
-             <div class="chatbox-body" id="chatbox-body">
-                <div class="chatbox-message bot">
-                     Hello! How can I assist you today?
-                </div>
-            </div>
-            <div class="chatbox-input">
-                 <input type="text" id="chatbox-input" placeholder="Type your message...">
-                 <button id="chatbox-send">Send</button>
-            </div>
-             <div class="chatbox-powered-by">
-            Powered by <a href="https://app-codyproai.onrender.com" target="_blank">CodyPro AI</a>
+                </button>
              </div>
+              <div class="chatbox-body" id="chatbox-body">
+                  <div class="chatbox-message bot">
+                    Hello! How can I assist you today?
+                 </div>
+            </div>
+             <div class="chatbox-input">
+                <input type="text" id="chatbox-input" placeholder="Type your message...">
+                  <button id="chatbox-send">Send</button>
+             </div>
+            <div class="chatbox-powered-by">
+               Powered by <a href="https://app-codyproai.onrender.com" target="_blank">CodyPro AI</a>
+           </div>
          </div>
     </div>
+       <!-- Minimized Chatbox Snippet -->
+      <div class="chatbox-snippet hidden" id="chatbox-snippet">
+         <i class="fas fa-comment-dots"></i>
+    </div>
+    <div class="copy-notification" id="copy-notification">Copied!</div>
 
 
     <script>
-        const toggleButton = document.getElementById('theme-toggle');
+       const toggleButton = document.getElementById('theme-toggle');
         const body = document.body;
-        const chatbox = document.getElementById('chatbox');
-        const chatboxBody = document.getElementById('chatbox-body');
-        const chatboxInput = document.getElementById('chatbox-input');
+         const chatbox = document.getElementById('chatbox');
+         const chatboxBody = document.getElementById('chatbox-body');
+         const chatboxInput = document.getElementById('chatbox-input');
         const chatboxSend = document.getElementById('chatbox-send');
         const chatboxHeader = document.getElementById('chatbox-header');
-         const minimizeChatbox = document.getElementById('minimize-chatbox');
-        const apiKey = "AIzaSyBZQNzg1kfWoGA-iwTuYIpo0VmzEnBSv70";
+        const minimizeChatbox = document.getElementById('minimize-chatbox');
+        const chatboxSnippet = document.getElementById('chatbox-snippet');
+       const apiKey = "AIzaSyBZQNzg1kfWoGA-iwTuYIpo0VmzEnBSv70";
+       const copyNotification = document.getElementById('copy-notification');
         // Set dark mode as default
         body.classList.remove('light');
 
        toggleButton.addEventListener('click', () => {
-           body.classList.toggle('light');
-           toggleButton.innerHTML = body.classList.contains('light') ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+          body.classList.toggle('light');
+          toggleButton.innerHTML = body.classList.contains('light') ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
         });
            chatboxHeader.addEventListener('click', () => {
-             chatbox.classList.toggle('hidden');
-         });
-         // Show the chatbox on page load
-        chatbox.classList.remove('hidden');
+            chatbox.classList.toggle('hidden');
+               chatboxSnippet.classList.toggle('hidden');
+          });
        minimizeChatbox.addEventListener('click', (e) => {
-                e.stopPropagation();
+               e.stopPropagation();
+              chatbox.classList.toggle('hidden');
+               chatboxSnippet.classList.toggle('hidden');
+           });
+         chatboxSnippet.addEventListener('click', () => {
                 chatbox.classList.toggle('hidden');
-            });
+                 chatboxSnippet.classList.toggle('hidden');
+           });
+         // Show the chatbox on page load
+          chatbox.classList.remove('hidden');
+           chatboxSnippet.classList.add('hidden');
 
         // Chatbox functionality
         chatboxSend.addEventListener('click', () => {
@@ -499,67 +529,95 @@
                  simulateGeminiResponse(userMessage);
             }
         });
-         chatboxInput.addEventListener('keypress', (e) => {
+        chatboxInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 chatboxSend.click();
             }
         });
-
         function appendMessage(message, sender) {
             const messageElement = document.createElement('div');
             messageElement.classList.add('chatbox-message', sender);
-            messageElement.textContent = message;
+           messageElement.innerHTML = `
+                ${message}
+                ${sender === 'bot' ? `<button class="copy-button" onclick="copyToClipboard(this)">
+                 <i class="fas fa-copy"></i></button>`
+                : `<button class="edit-button" onclick="editMessage(this)">
+                   <i class="fas fa-edit"></i></button>`
+                }
+            `;
             chatboxBody.appendChild(messageElement);
             chatboxBody.scrollTop = chatboxBody.scrollHeight;
         }
-
         function simulateGeminiResponse(userMessage) {
             appendMessage('...', 'bot');
             const loadingDots = document.createElement('div');
-            loadingDots.classList.add('loading');
-            loadingDots.innerHTML = `
+             loadingDots.classList.add('loading');
+           loadingDots.innerHTML = `
                 <div class="loading-dot"></div>
-                <div class="loading-dot"></div>
+               <div class="loading-dot"></div>
                 <div class="loading-dot"></div>
             `;
             chatboxBody.appendChild(loadingDots);
             chatboxBody.scrollTop = chatboxBody.scrollHeight;
-
-            // Simulate Gemini API call
-             fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey, {
+           // Simulate Gemini API call
+           fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey, {
                     method: "POST",
-                    headers: {
+                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
                     contents: [{
                             parts: [{
-                            text: `You are an intelligent AI assistant mamed Cody, specializing in keyword research and optimization. Your role is to help users discover high-impact, relevant, and targeted keywords tailored to their specific goals, whether for SEO, marketing campaigns, or content creation. You analyze trends, search volumes, competition, and user intent to provide actionable keyword suggestions that drive visibility and engagement. With your insights, users can create optimized strategies to maximize reach, attract the right audience, and achieve measurable results efficiently. User: ${userMessage}`
+                            text: `You are an intelligent AI assistant named Cody, specializing in keyword research and optimization. Your role is to help users discover high-impact, relevant, and targeted keywords tailored to their specific goals, whether for SEO, marketing campaigns, or content creation. You analyze trends, search volumes, competition, and user intent to provide actionable keyword suggestions that drive visibility and engagement. With your insights, users can create optimized strategies to maximize reach, attract the right audience, and achieve measurable results efficiently. User: ${userMessage}`
 
                             }]
-                    }]
-
-                    })
-
-               })
+                     }]
+                   })
+                })
                 .then(response => response.json())
                 .then(data => {
-                   chatboxBody.removeChild(loadingDots);
-                 console.log(data);
-                if(data.candidates && data.candidates[0].content.parts && data.candidates[0].content.parts[0].text){
-                    const geminiResponse = data.candidates[0].content.parts[0].text;
-                    appendMessage(geminiResponse, 'bot');
-                }
-                 else{
-                     appendMessage('Sorry, I encountered an error processing your request. Please try again.', 'bot')
-                     }
-                })
-                 .catch(error => {
                     chatboxBody.removeChild(loadingDots);
-                  console.error("Error fetching from Gemini:", error);
-                    appendMessage('Sorry, I encountered an error processing your request. Please try again.', 'bot')
+                    console.log(data);
+                    if(data.candidates && data.candidates[0].content.parts && data.candidates[0].content.parts[0].text){
+                        const geminiResponse = data.candidates[0].content.parts[0].text;
+                       appendMessage(geminiResponse, 'bot');
+                    }
+                    else{
+                        appendMessage('Sorry, I encountered an error processing your request. Please try again.', 'bot')
+                    }
+                })
+                .catch(error => {
+                     chatboxBody.removeChild(loadingDots);
+                   console.error("Error fetching from Gemini:", error);
+                     appendMessage('Sorry, I encountered an error processing your request. Please try again.', 'bot')
+                });
+         }
+
+          function copyToClipboard(element) {
+            const messageText = element.parentElement.childNodes[0].nodeValue.trim();
+              navigator.clipboard.writeText(messageText)
+                .then(() => {
+                  showNotification('Copied!');
+
+                })
+               .catch(err => {
+                   console.error('Failed to copy text: ', err);
+                     showNotification('Failed to copy!');
                  });
+          }
+          function showNotification(message) {
+            copyNotification.textContent = message;
+            copyNotification.classList.add('show');
+           setTimeout(() => {
+             copyNotification.classList.remove('show');
+            }, 2000);
            }
+          function editMessage(element){
+           const messageText = element.parentElement.childNodes[0].nodeValue.trim();
+            chatboxInput.value = messageText
+           chatboxInput.focus();
+           showNotification('Ready to Edit!')
+          }
     </script>
 </body>
 
