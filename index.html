@@ -1,249 +1,481 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodyPro AI - Login with Google</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Lightning Leads</title>
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 50px;
-            background-color: #0b0f14;
-            color: #e8f1f2;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            height: 100vh;
-            justify-content: center;
+            padding: 0;
+            background: linear-gradient(120deg, #2b2b2b, #1a1a1a);
+            color: #ddd;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light {
+            background: linear-gradient(120deg, #84fab0, #8fd3f4);
+            color: #333;
+        }
+
+        header {
+            background-color: #0066cc;
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: slideIn 1s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        header img {
+            height: 50px;
+            margin-right: 1rem;
+        }
+
+        main {
+            padding: 2rem;
             text-align: center;
         }
 
-       h1 {
-            margin-bottom: 30px;
-            color: #00ff9d;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+        .search-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: #333;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1.5s ease-in-out;
         }
 
+        body.light .search-container {
+            background: white;
+            color: #333;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            color: #ddd;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        body.light footer {
+            background-color: #f1f1f1;
+            color: #333;
+        }
 
         button {
-            padding: 15px 30px;
-            font-size: 16px;
-            cursor: pointer;
+            background-color: #0066cc;
+            color: white;
             border: none;
+            padding: 0.8rem 1.5rem;
             border-radius: 8px;
-            margin: 5px;
+            cursor: pointer;
+            font-size: 1rem;
             transition: background-color 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            font-weight: bold;
         }
 
+        button:hover {
+            background-color: #004999;
+        }
 
-        #google-login-btn {
-            background-color: #4285f4;
+        .toggle-button {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
             color: white;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-         #google-login-btn:hover{
-              background-color: #3570e8;
-         }
-
-        #logout-btn {
-            background-color: #db4437;
-            color: white;
+            z-index: 1000;
         }
 
-         #logout-btn:hover {
-             background-color: #c13a30;
-         }
-
-         .loading-message {
-            margin-top: 20px;
-             color: #00ff9d;
-            font-style: italic;
-         }
-
-        .error-message {
-            color: #ff5722;
-            margin-top: 10px;
-            font-weight: bold;
-            background: rgba(255,87,34,0.1);
-            padding: 10px;
-            border-radius: 8px;
-        }
-
-
-        .user-profile {
-             margin-top: 20px;
-            padding: 30px;
-            background-color: rgba(255,255,255,0.08);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-
-        .profile-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            object-fit: cover;
-             border: 2px solid #00ff9d;
-        }
-
-
-    </style>
-</head>
-<body>
-    <h1>Welcome to CodyPro AI</h1>
-    <div id="auth-container">
-        <button id="google-login-btn">
-            <i class="fab fa-google"></i> Sign in with Google
-        </button>
-    </div>
-    <div id="loading-container" class="loading-message" style="display:none;">Loading...</div>
-    <div id="error-container" class="error-message"></div>
-    <div id="user-profile-container"></div>
-
-    <script>
-        const clientId = 'YOUR_GOOGLE_DRIVE_CLIENT_ID'; // Replace with your actual client ID
-        const redirectUri = 'https://auth-modal-demo-1.onrender.com/callback'; // Use your live URL
-        const scope = 'profile email';
-        const googleAuthEndpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
-         const clientSecret = "YOUR_CLIENT_SECRET"; // IMPORTANT: Do not expose this in frontend code in production!!!
-
-        const authContainer = document.getElementById('auth-container');
-        const loadingContainer = document.getElementById('loading-container');
-        const errorContainer = document.getElementById('error-container');
-        const userProfileContainer = document.getElementById('user-profile-container');
-
-        function setLoading(isLoading){
-            loadingContainer.style.display = isLoading ? "block": "none";
-            errorContainer.textContent = "";
-        }
-
-         function clearUserProfile(){
-             userProfileContainer.innerHTML = "";
-             authContainer.innerHTML = `
-                 <button id="google-login-btn">
-                     <i class="fab fa-google"></i> Sign in with Google
-                 </button>
-             `;
-             attachGoogleLoginClick();
-        }
-
-        function displayError(message){
-            errorContainer.textContent = message;
-            setLoading(false);
-        }
-
-        function displayUserProfile(userData){
-            let profileHTML = `
-                <div class="user-profile">
-                    <img class="profile-image" src="${userData.picture}" alt="User Profile Image">
-                    <p><strong>Name:</strong> ${userData.name}</p>
-                    <p><strong>Email:</strong> ${userData.email}</p>
-                    <button id="logout-btn">Log out</button>
-                </div>
-            `;
-            userProfileContainer.innerHTML = profileHTML;
-             const logoutButton = document.getElementById('logout-btn');
-             if(logoutButton) {
-                 logoutButton.addEventListener('click', clearUserProfile);
-             }
-            setLoading(false);
-            authContainer.innerHTML = ''; // Remove login button
-
-        }
-
-         function buildAuthURL() {
-            const params = new URLSearchParams({
-                client_id: clientId,
-                redirect_uri: redirectUri,
-                scope: scope,
-                response_type: 'code',
-            });
-
-            return `${googleAuthEndpoint}?${params.toString()}`;
-        }
-
-        function initiateGoogleAuth() {
-            const authUrl = buildAuthURL();
-            window.location.href = authUrl;
-        }
-
-       function attachGoogleLoginClick(){
-           const loginButton = document.getElementById('google-login-btn');
-            if(loginButton){
-                loginButton.addEventListener('click', initiateGoogleAuth);
-           }
-        }
-          async function exchangeCodeForToken(code) {
-                setLoading(true);
-
-                // Simulated backend token exchange logic (DO NOT DO IN PROD!)
-                const tokenEndpoint = "https://oauth2.googleapis.com/token";
-                const tokenParams = new URLSearchParams();
-                tokenParams.append("code", code);
-                tokenParams.append("client_id", clientId);
-                tokenParams.append("client_secret", clientSecret);
-                tokenParams.append("redirect_uri", redirectUri);
-                tokenParams.append("grant_type", "authorization_code");
-
-
-                try {
-                    const tokenResponse = await fetch(tokenEndpoint, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                         body: tokenParams,
-                   });
-                    if (!tokenResponse.ok) {
-                        const errorData = await tokenResponse.json();
-                        displayError(`Error fetching token: ${errorData.error_description || tokenResponse.statusText}`);
-                        throw new Error(`Token request failed: ${tokenResponse.status}`);
-                     }
-
-                    const tokenData = await tokenResponse.json();
-                     const accessToken = tokenData.access_token;
-                    //fetch profile
-                     const profileResponse = await fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
-                        headers: {
-                                    "Authorization": `Bearer ${accessToken}`
-                             },
-                    });
-                     if (!profileResponse.ok) {
-                         const errorData = await profileResponse.json();
-                         displayError(`Error fetching user profile: ${errorData.error_description || profileResponse.statusText}`);
-                        throw new Error(`Profile request failed: ${profileResponse.status}`);
-                     }
-
-                    const profileData = await profileResponse.json();
-                    displayUserProfile(profileData);
-
-
-                } catch (error) {
-                    displayError(`Error in token exchange process: ${error.message}`)
-                    setLoading(false);
-
-                }
-
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
             }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            attachGoogleLoginClick();
-            const urlParams = new URLSearchParams(window.location.search);
-            const authorizationCode = urlParams.get('code');
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
-            if (authorizationCode) {
-               exchangeCodeForToken(authorizationCode);
-             }
-         });
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
 
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Chatbox Styles */
+        .chatbox {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            width: 300px;
+            background: #333;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: 400px;
+        }
+
+        body.light .chatbox {
+            background: white;
+            color: #333;
+        }
+
+        .chatbox-header {
+            background-color: #0066cc;
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbox-body {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .chatbox-message {
+            padding: 0.5rem;
+            border-radius: 8px;
+            max-width: 80%;
+            white-space: pre-line; /* Allow line breaks */
+        }
+
+        .chatbox-message.user {
+            background-color: #0066cc;
+            color: white;
+            align-self: flex-end;
+        }
+
+        .chatbox-message.bot {
+            background-color: #444;
+            color: #ddd;
+            align-self: flex-start;
+        }
+
+        body.light .chatbox-message.bot {
+            background-color: #f1f1f1;
+            color: #333;
+        }
+
+        .chatbox-input {
+            display: flex;
+            border-top: 1px solid #555;
+        }
+
+        body.light .chatbox-input {
+            border-top: 1px solid #ddd;
+        }
+
+        .chatbox-input input {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            outline: none;
+            background: #444;
+            color: #ddd;
+        }
+
+        body.light .chatbox-input input {
+            background: white;
+            color: #333;
+        }
+
+        .chatbox-input button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+
+        .chatbox-input button:hover {
+            background-color: #004999;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.5rem;
+        }
+
+        .loading-dot {
+            width: 8px;
+            height: 8px;
+            margin: 0 4px;
+            background-color: #0066cc;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+
+        .loading-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+            0%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Admin Security Code Dropdown */
+        .admin-dropdown {
+            position: relative;
+        }
+
+        .admin-dropdown select {
+            background: #444;
+            color: #ddd;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        body.light .admin-dropdown select {
+            background: white;
+            color: #333;
+        }
+
+        .admin-dropdown .note {
+            font-size: 0.8rem;
+            color: #00cc66;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            header img {
+                margin-bottom: 1rem;
+            }
+
+            .chatbox {
+                width: 90%;
+                right: 5%;
+                bottom: 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="https://i.ibb.co/G54yvHB/Lightning-Leads-logo.png" alt="Lightning Leads Logo">
+        <div>
+            <h1>Lightning Leads</h1>
+            <p>Empowering your searches with lightning speed</p>
+        </div>
+    </header>
+
+    <button class="toggle-button" id="theme-toggle" aria-label="Toggle theme">🌞</button>
+
+    <main>
+        <div class="search-container">
+            <p>Use the search box below to discover amazing results:</p>
+
+            <!-- Google Custom Search Element -->
+            <script async src="https://cse.google.com/cse.js?cx=e514bb2842e7845ae"></script>
+            <div class="gcse-search"></div>
+
+            <!-- Placeholder for Google Results -->
+            <div id="search-results">
+                <!-- Results will appear here after a search -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Lightning Leads. All rights reserved. Developed by Flynn James P.</p>
+    </footer>
+
+    <!-- Chatbox Widget -->
+    <div class="chatbox">
+        <div class="chatbox-header">
+            Chat with us
+            <div class="admin-dropdown">
+                <select id="admin-code">
+                    <option value="">Select Admin Code</option>
+                    <option value="123456">Activate Gemini API</option>
+                </select>
+                <div class="note" id="admin-note"></div>
+            </div>
+        </div>
+        <div class="chatbox-body" id="chatbox-body">
+            <div class="chatbox-message bot">
+                Hello! How can I assist you today?
+            </div>
+        </div>
+        <div class="chatbox-input">
+            <input type="text" id="chatbox-input" placeholder="Type your message...">
+            <button id="chatbox-send">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const toggleButton = document.getElementById('theme-toggle');
+        const body = document.body;
+        const chatboxBody = document.getElementById('chatbox-body');
+        const chatboxInput = document.getElementById('chatbox-input');
+        const chatboxSend = document.getElementById('chatbox-send');
+        const adminCodeDropdown = document.getElementById('admin-code');
+        const adminNote = document.getElementById('admin-note');
+
+        // Set dark mode as default
+        body.classList.remove('light');
+
+        toggleButton.addEventListener('click', () => {
+            body.classList.toggle('light');
+            toggleButton.textContent = body.classList.contains('light') ? '🌙' : '🌞';
+        });
+
+        // Admin Security Code Validation
+        let isGeminiActivated = false;
+        adminCodeDropdown.addEventListener('change', (e) => {
+            if (e.target.value === "123456") {
+                isGeminiActivated = true;
+                adminNote.textContent = "Gemini API activated!";
+                appendMessage("Gemini API is now active. How can I assist you?", 'bot');
+            } else {
+                isGeminiActivated = false;
+                adminNote.textContent = "";
+            }
+        });
+
+        // Chatbox functionality
+        chatboxSend.addEventListener('click', () => {
+            const userMessage = chatboxInput.value.trim();
+            if (userMessage) {
+                appendMessage(userMessage, 'user');
+                chatboxInput.value = '';
+                if (isGeminiActivated) {
+                    simulateGeminiResponse(userMessage);
+                } else {
+                    simulateBotResponse(userMessage);
+                }
+            }
+        });
+
+        chatboxInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                chatboxSend.click();
+            }
+        });
+
+        function appendMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chatbox-message', sender);
+            messageElement.textContent = message;
+            chatboxBody.appendChild(messageElement);
+            chatboxBody.scrollTop = chatboxBody.scrollHeight;
+        }
+
+        function simulateBotResponse(userMessage) {
+             appendMessage('...', 'bot');
+            const loadingDots = document.createElement('div');
+            loadingDots.classList.add('loading');
+             loadingDots.innerHTML = `
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+            `;
+             chatboxBody.appendChild(loadingDots);
+            chatboxBody.scrollTop = chatboxBody.scrollHeight;
+
+            setTimeout(() => {
+                 chatboxBody.removeChild(loadingDots);
+                const botResponse = getBotResponse(userMessage);
+                appendMessage(botResponse, 'bot');
+            }, 1000);
+        }
+
+       function simulateGeminiResponse(userMessage) {
+            appendMessage('...', 'bot');
+            const loadingDots = document.createElement('div');
+            loadingDots.classList.add('loading');
+            loadingDots.innerHTML = `
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+            `;
+            chatboxBody.appendChild(loadingDots);
+            chatboxBody.scrollTop = chatboxBody.scrollHeight;
+
+            // Simulate Gemini API call
+            setTimeout(() => {
+                chatboxBody.removeChild(loadingDots);
+                const geminiResponse = getGeminiResponse(userMessage);
+                 appendMessage(geminiResponse, 'bot');
+            }, 1000);
+        }
+
+
+        function getBotResponse(userMessage) {
+            const responses = [
+                "I'm sorry, I don't understand that. Can you please clarify?",
+                "That's interesting! Can you tell me more?",
+                "I'll look that up for you. Please hold on.",
+                "Here's what I found: [Placeholder response]",
+                "Thank you for your question! Let me check that for you."
+            ];
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+
+        function getGeminiResponse(userMessage) {
+            // Replace this with actual Gemini API integration
+            const geminiResponses = [
+                "Based on my analysis, here's the answer: [Gemini response]",
+                "Gemini suggests the following: [Gemini response]",
+                 "Here's what Gemini found: [Gemini response]",
+                "Let me consult my knowledge base with Gemini: [Gemini response]"
+             ];
+            return geminiResponses[Math.floor(Math.random() * geminiResponses.length)];
+        }
     </script>
 </body>
+
 </html>
