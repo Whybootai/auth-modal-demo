@@ -1,249 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodyPro AI - Login with Google</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Sign In - Lightning Leads</title>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        body {
+          body {
             font-family: 'Roboto', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 50px;
-            background-color: #0b0f14;
-            color: #e8f1f2;
             margin: 0;
-            height: 100vh;
+            padding: 0;
+            background-image: url('https://via.placeholder.com/1920x1080/FF0000/FFFFFF?text=Latest+Red+Car+Model');
+            background-size: cover;
+            background-position: center;
+            display: flex;
             justify-content: center;
-            text-align: center;
-        }
-
-       h1 {
-            margin-bottom: 30px;
-            color: #00ff9d;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-        }
-
-
-        button {
-            padding: 15px 30px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 8px;
-            margin: 5px;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            font-weight: bold;
-        }
-
-
-        #google-login-btn {
-            background-color: #4285f4;
-            color: white;
-            display: inline-flex;
             align-items: center;
-            gap: 10px;
+            min-height: 100vh;
+           overflow: hidden;
+            position: relative;
+            transition: background-image 0.3s ease; /*Transition for background*/
         }
-         #google-login-btn:hover{
-              background-color: #3570e8;
+        body::before {
+            content: '';
+             position: absolute;
+            top: 0;
+            left: 0;
+           width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+             z-index: -1; /*Ensures the overlay is above the background*/
          }
 
-        #logout-btn {
-            background-color: #db4437;
-            color: white;
+        .modal {
+            display: flex;
+            position: fixed;
+             top: 0;
+            left: 0;
+           width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+             align-items: center;
+            z-index: 1000;
+            opacity: 0; /* Start hidden */
+            pointer-events: none; /* Disable click events when hidden */
+            transition: opacity 0.3s ease; /* For smooth show/hide */
         }
 
-         #logout-btn:hover {
-             background-color: #c13a30;
-         }
 
-         .loading-message {
-            margin-top: 20px;
-             color: #00ff9d;
-            font-style: italic;
+         .modal.show{
+               opacity: 1;
+             pointer-events: auto; /* Enables click when shown */
          }
-
-        .error-message {
-            color: #ff5722;
-            margin-top: 10px;
-            font-weight: bold;
-            background: rgba(255,87,34,0.1);
-            padding: 10px;
+        .modal-content {
+            background: white;
+            padding: 24px;
             border-radius: 8px;
+            width: 380px;
+            position: relative;
+            text-align: center; /* Center content horizontally */
+          }
+         .modal-content img {
+             max-width: 100px;
+            height: auto;
+           margin-bottom: 1rem;
+        }
+
+         .modal .g_id_signin {
+            margin: 16px 0;
+            display: inline-block; /* Make the sign-in button an inline-block element */
+         }
+         .signin-container{
+            background: rgba(255, 255, 255, 0.9);
+              padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+           text-align: center;
+            max-width: 90%; /* Ensure it is responsive */
+             width: 400px; /* Initial width */
+         }
+          .signin-container img {
+            max-width: 200px; /* Reduced size for better look */
+           height: auto;
+           margin-bottom: 1rem;
+         }
+          .signin-container h1 {
+           margin-bottom: 1.5rem;
         }
 
 
-        .user-profile {
-             margin-top: 20px;
-            padding: 30px;
-            background-color: rgba(255,255,255,0.08);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-
-        .profile-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            object-fit: cover;
-             border: 2px solid #00ff9d;
-        }
-
-
+        @media (max-width: 768px) {
+             .signin-container {
+                padding: 2rem;
+              width: 90%; /* Full width on mobile*/
+            }
+              .modal-content {
+                   padding: 1rem;
+                   width: 90%;
+                }
+         }
     </style>
 </head>
+
 <body>
-    <h1>Welcome to CodyPro AI</h1>
-    <div id="auth-container">
-        <button id="google-login-btn">
-            <i class="fab fa-google"></i> Sign in with Google
-        </button>
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+          <img src="https://i.ibb.co/D5gMz8m/Lightning-Leads-logo.png" alt="Lightning Leads Logo" >
+          <h2>Sign in with Google</h2>
+            <div id="g_id_onload"
+             data-client_id="690096232363-d8kmh963sah4oo6e8fckotni335q0nse.apps.googleusercontent.com"
+            data-callback="handleGoogleSignIn">
+             </div>
+             <div class="g_id_signin" data-type="standard"></div>
+        </div>
     </div>
-    <div id="loading-container" class="loading-message" style="display:none;">Loading...</div>
-    <div id="error-container" class="error-message"></div>
-    <div id="user-profile-container"></div>
+     <div class="signin-container">
+        <img src="https://i.ibb.co/D5gMz8m/Lightning-Leads-logo.png" alt="Lightning Leads Logo">
+        <h1>Unlock Your Leads</h1>
+         <p>Please sign in to access the platform</p>
+        <button  id="signInButton" style=" cursor: pointer; padding: 0.8rem 1.5rem; border-radius: 8px; font-size: 1rem; background-color: #0066cc; color: white; border: none;">Sign In Now</button>
+    </div>
+
 
     <script>
-        const clientId = 'YOUR_GOOGLE_DRIVE_CLIENT_ID'; // Replace with your actual client ID
-        const redirectUri = 'https://auth-modal-demo-1.onrender.com/callback'; // Use your live URL
-        const scope = 'profile email';
-        const googleAuthEndpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
-         const clientSecret = "YOUR_CLIENT_SECRET"; // IMPORTANT: Do not expose this in frontend code in production!!!
+        const authModal = document.getElementById('authModal');
+        const signInButton = document.getElementById('signInButton');
+        let googleUser = null;
+        signInButton.addEventListener('click', function(){
+          authModal.classList.add('show');
+          document.body.style.overflow = 'hidden';
 
-        const authContainer = document.getElementById('auth-container');
-        const loadingContainer = document.getElementById('loading-container');
-        const errorContainer = document.getElementById('error-container');
-        const userProfileContainer = document.getElementById('user-profile-container');
-
-        function setLoading(isLoading){
-            loadingContainer.style.display = isLoading ? "block": "none";
-            errorContainer.textContent = "";
-        }
-
-         function clearUserProfile(){
-             userProfileContainer.innerHTML = "";
-             authContainer.innerHTML = `
-                 <button id="google-login-btn">
-                     <i class="fab fa-google"></i> Sign in with Google
-                 </button>
-             `;
-             attachGoogleLoginClick();
-        }
-
-        function displayError(message){
-            errorContainer.textContent = message;
-            setLoading(false);
-        }
-
-        function displayUserProfile(userData){
-            let profileHTML = `
-                <div class="user-profile">
-                    <img class="profile-image" src="${userData.picture}" alt="User Profile Image">
-                    <p><strong>Name:</strong> ${userData.name}</p>
-                    <p><strong>Email:</strong> ${userData.email}</p>
-                    <button id="logout-btn">Log out</button>
-                </div>
-            `;
-            userProfileContainer.innerHTML = profileHTML;
-             const logoutButton = document.getElementById('logout-btn');
-             if(logoutButton) {
-                 logoutButton.addEventListener('click', clearUserProfile);
-             }
-            setLoading(false);
-            authContainer.innerHTML = ''; // Remove login button
-
-        }
-
-         function buildAuthURL() {
-            const params = new URLSearchParams({
-                client_id: clientId,
-                redirect_uri: redirectUri,
-                scope: scope,
-                response_type: 'code',
+        })
+       // Initialize Google Sign-in
+            google.accounts.id.initialize({
+               client_id: '690096232363-d8kmh963sah4oo6e8fckotni335q0nse.apps.googleusercontent.com',
+                 callback: handleGoogleSignIn,
             });
-
-            return `${googleAuthEndpoint}?${params.toString()}`;
-        }
-
-        function initiateGoogleAuth() {
-            const authUrl = buildAuthURL();
-            window.location.href = authUrl;
-        }
-
-       function attachGoogleLoginClick(){
-           const loginButton = document.getElementById('google-login-btn');
-            if(loginButton){
-                loginButton.addEventListener('click', initiateGoogleAuth);
-           }
-        }
-          async function exchangeCodeForToken(code) {
-                setLoading(true);
-
-                // Simulated backend token exchange logic (DO NOT DO IN PROD!)
-                const tokenEndpoint = "https://oauth2.googleapis.com/token";
-                const tokenParams = new URLSearchParams();
-                tokenParams.append("code", code);
-                tokenParams.append("client_id", clientId);
-                tokenParams.append("client_secret", clientSecret);
-                tokenParams.append("redirect_uri", redirectUri);
-                tokenParams.append("grant_type", "authorization_code");
+           google.accounts.id.renderButton(
+                 signInButton, // The element ID
+                { theme: "outline", size: "large", text: 'sign_in_with', logo_alignment: 'left' }  // customization attributes
+            );
 
 
-                try {
-                    const tokenResponse = await fetch(tokenEndpoint, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                         body: tokenParams,
-                   });
-                    if (!tokenResponse.ok) {
-                        const errorData = await tokenResponse.json();
-                        displayError(`Error fetching token: ${errorData.error_description || tokenResponse.statusText}`);
-                        throw new Error(`Token request failed: ${tokenResponse.status}`);
-                     }
-
-                    const tokenData = await tokenResponse.json();
-                     const accessToken = tokenData.access_token;
-                    //fetch profile
-                     const profileResponse = await fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
-                        headers: {
-                                    "Authorization": `Bearer ${accessToken}`
-                             },
-                    });
-                     if (!profileResponse.ok) {
-                         const errorData = await profileResponse.json();
-                         displayError(`Error fetching user profile: ${errorData.error_description || profileResponse.statusText}`);
-                        throw new Error(`Profile request failed: ${profileResponse.status}`);
-                     }
-
-                    const profileData = await profileResponse.json();
-                    displayUserProfile(profileData);
-
-
-                } catch (error) {
-                    displayError(`Error in token exchange process: ${error.message}`)
-                    setLoading(false);
-
-                }
-
+           function handleGoogleSignIn(response) {
+              console.log("Google Sign-in Response:", response);
+               if (response.credential) {
+                   // Decode the JWT
+                   const decoded = JSON.parse(atob(response.credential.split('.')[1]));
+                 googleUser = decoded;
+                 authModal.style.display = "none";
+                 document.body.style.overflow = '';
+                    // Redirect to the specified URL after successful login
+                   window.location.href = 'https://apps-lightningleadsaz-local-buyers-list.onrender.com/';
+                 }
             }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            attachGoogleLoginClick();
-            const urlParams = new URLSearchParams(window.location.search);
-            const authorizationCode = urlParams.get('code');
-
-            if (authorizationCode) {
-               exchangeCodeForToken(authorizationCode);
+              function redirectToOauth(){
+                   window.location.href = 'https://apps-lightningleadsaz.onrender.com/';
              }
-         });
 
     </script>
 </body>
+
 </html>
